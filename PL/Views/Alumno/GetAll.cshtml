@@ -1,0 +1,64 @@
+﻿@model ML.Alumno
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<container>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Alumnos</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("+", "Form", "Alumno", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+
+
+    @if (Model.Alumnos.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr class="text-center">
+                            <td>Editar</td>
+                            <td class="hidden">IdAlumno</td>
+                            <td>Nombre</td>
+                            <td>Apellido Paterno</td>
+                            <td>Apellido Materno</td>
+                            <td>Eliminar</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Alumno alumno in Model.Alumnos)
+                        {
+                            <tr class="text-center">
+                                <td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Alumno", new { IdAlumno = alumno.IdAlumno })"></a></td>
+                                <td class="hidden">@alumno.IdAlumno</td>
+                                <td>@alumno.Nombre</td>
+                                <td>@alumno.ApellidoPaterno</td>
+                                <td>@alumno.ApellidoMaterno</td>
+                                <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Alumno", new { IdAlumno = alumno.IdAlumno })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    No se encontraron registros de alumnos
+                </div>
+            </div>
+        </div>
+    }
+
+ 
+</container>

@@ -1,0 +1,102 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriasGetNoAsignadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<container>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Asignar Materias</h2>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Alumno.Nombre )
+            @Html.TextBoxFor(model => model.Alumno.Nombre, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Alumno.ApellidoPaterno)
+            @Html.TextBoxFor(model => model.Alumno.ApellidoPaterno, new { @readonly = "readonly" , @class = "form-control" })
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Alumno.ApellidoMaterno)
+            @Html.TextBoxFor(model => model.Alumno.ApellidoMaterno, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+    <br />
+    @using (Html.BeginForm("MateriasGetNoAsignadas", "AlumnoMateria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Alumno.IdAlumno, new {@class="hidden"})
+                @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class="form-control hidden"})
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+            <div class="col-md-1">
+                <a type="button" class="btn btn-danger" value="Regresar" href="@Url.Action("MateriasGetAsignadas", "AlumnoMateria")">Regresar</a>
+
+            </div>
+        </div>
+
+        <br />
+
+            if (Model.Materia.Materias.Count > 0)
+            {
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr class="text-center">
+                                <td>Seleccionar</td>
+                                <td class="hidden">IdMaterias</td>
+                                <td>Materia</td>
+                                <td>Costo</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ML.AlumnoMateria alumnoMateria in Model.Materia.Materias)
+                            {
+                                <tr class="text-center">
+
+
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="AlumnoMaterias" value="@alumnoMateria.Materia.IdMateria" checked>
+
+                                        </div>
+                                    </td>
+                                    <td class="hidden">@alumnoMateria.Materia.IdMateria</td>
+                                    <td>@alumnoMateria.Materia.Nombre</td>
+                                    <td>@alumnoMateria.Materia.Costo</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            }
+            else
+            {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        No hay materias disponibles para asignar
+                    </div>
+                </div>
+            </div>
+            }
+            }
+
+    </container>

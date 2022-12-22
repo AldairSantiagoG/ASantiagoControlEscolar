@@ -1,0 +1,96 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriasGetAsignadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<container>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Alumnos</h2>
+        </div>
+    </div>
+
+    <br />
+   
+        <div class="row">
+            
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Alumno.Nombre)
+                @Html.TextBoxFor(model => model.Alumno.Nombre, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Alumno.ApellidoPaterno)
+                @Html.TextBoxFor(model => model.Alumno.ApellidoPaterno, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Alumno.ApellidoMaterno)
+                @Html.TextBoxFor(model => model.Alumno.ApellidoMaterno, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.Alumno.IdAlumno, new { @hidden = "true" })
+                @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @readonly = "readonly", @class = "form-control hidden" })
+                <a type="button" class="btn btn-success" value="Agregar" href="@Url.Action("MateriasGetNoAsignadas", "AlumnoMateria", new { IdAlumno =  Model.Alumno.IdAlumno })">Agregar</a>
+                
+            </div>
+            <div class="col-md-1">
+                <a type="button" class="btn btn-danger" value="Regresar" href="@Url.Action("GetAll", "AlumnoMateria")">Regresar</a>
+
+            </div>
+                
+            
+        </div>
+
+    
+    <br />
+
+        @if (Model.Materia.Materias.Count > 0)
+        {
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr class="text-center">
+                                <td>Borrar</td>
+                                <td class="hidden">IdMaterias</td>
+                                <td>Materia</td>
+                                <td>Costo</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ML.AlumnoMateria alumnoMateria in Model.Materia.Materias)
+                            {
+                            <tr class="text-center">
+                                @*<td><a class="btn btn-danger" href="@Url.Action("Delete", "AlumnoMateria", new { IdAlumnoMateria = alumnoMateria.IdAlumnoMateria })"></a></td>*@
+                                <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "AlumnoMateria", new { IdAlumnoMateria = alumnoMateria.IdAlumnoMateria})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                                <td class="hidden">@alumnoMateria.Materia.IdMateria</td>
+                                <td>@alumnoMateria.Materia.Nombre</td>
+                                <td>@alumnoMateria.Materia.Costo</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        El alumno no tiene materias asignadas
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </container>
+

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Control Escolar</h1>
+    <p class="lead">Sistema de alumnos y materias</p>
+    @*<p><a href="" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Alumno</h2>
+        <p>
+            En este apartado se visualiza la informacion de los alumnos
+        </p>
+        <p><a class="btn btn-default" href="http://localhost:2809/Alumno/GetAll">Ir a Alumnos &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Materia</h2>
+        <p>En este apartado se visualiza la informacion de las materias</p>
+        <p><a class="btn btn-default" href="http://localhost:2809/Materia/GetAll">Ir a Materias &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Alumno - Materia</h2>
+        <p>En este apartado se visualiza la realacion de un alumno en particular con las materias que cursa</p>
+        <p><a class="btn btn-default" href="http://localhost:2809/AlumnoMateria/GetAll">Ir a ALumno-Materia &raquo;</a></p>
+    </div>
+</div>
